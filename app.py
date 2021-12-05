@@ -26,4 +26,8 @@ def get(name):
 
 @app.route("/AddProduct",methods = ['POST'])
 def add():
-    return "<p>PID: " + request.form['product'] + "</p>"
+    cur = master.cursor()
+    query = "insert into product(name, price) values ('{}', {});".format(request.form['name'].lower(), request.form['price'])
+    cur.execute(query)
+    cur.close()
+    return "<p>PID: " + os.getpid() + "</p>"
